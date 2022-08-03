@@ -1,8 +1,9 @@
 const fs = require('fs');
-const { Client, Collection} = require('discord.js');
+const { Client, Collection, IntentsBitField} = require('discord.js');
 const { token } = require('./config.json');
 
-const client = new Client({ intents: ["Guilds"] });
+const otherIntents = new IntentsBitField(14023);
+const client = new Client({ intents: otherIntents });
 
 
 client.commands = new Collection();
