@@ -1,5 +1,6 @@
 const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const framework = require ('../framework')
+const framework = require ('../framework');
+const setting = require('../setting');
 
 module.exports = {
     data : new SlashCommandBuilder()
@@ -35,7 +36,7 @@ module.exports = {
 
             await channel.bulkDelete(filtered, true).then(messages => {
                 const response = new EmbedBuilder()
-                    .setColor('#0099ff')
+                    .setColor(setting.colorEmbed)
                     .setTitle('🧹 | Очистка')
                     .setDescription(`Очищено ${messages.size} сообщений от ${Target}.`);
                 return interaction.reply({embeds: [response]});
@@ -43,7 +44,7 @@ module.exports = {
         } else {
             await channel.bulkDelete(Amount, true).then(messages => {
                 const response = new EmbedBuilder()
-                    .setColor('#0099ff')
+                    .setColor(setting.colorEmbed)
                     .setTitle('🧹 | Очистка')
                     .setDescription(`Очищено ${messages.size} сообщений.`);
                 return interaction.reply({embeds: [response]});

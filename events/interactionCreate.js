@@ -1,5 +1,5 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, PermissionsBitField  } = require('discord.js');
-let setting = require('./../setting.json')
+let setting = require('./../setting.json');
 const fs = require('fs');
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
     async execute(interaction) {
         if (!interaction.isButton()) return;
         if (interaction.customId == 'application') {
-            fs.writeFileSync('setting.json', JSON.stringify({ ticketId: ++setting.ticketId}))
+            fs.writeFileSync('setting.json', JSON.stringify({ ticketId: ++setting.ticketId, colorEmbed: setting.colorEmbed}))
 
             interaction.guild.channels.create({
                 name: `Заявка №${setting.ticketId}`,
@@ -36,14 +36,14 @@ module.exports = {
                         .setStyle(ButtonStyle.Primary)
                 )
             const Embed = new  EmbedBuilder()
-                .setColor('#0099ff')
+                .setColor(setting.colorEmbed)
                 .setTitle('Забрать заявку')
                 .setDescription('Вы можете забрать свою заявку в суд и она не будет рассматриватся.')
             await channel.send({embeds: [Embed], components: [Button]})
             return await interaction.reply({content: `${interaction.member} ваша заявка была создана: №${setting.ticketId}`, ephemeral: true})
             });
         } else if (interaction.customId == 'pickUp') {
-            return await interaction.channel.delete();
+            interaction.channel.delete();
         }
     }
 }

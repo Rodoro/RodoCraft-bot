@@ -1,4 +1,5 @@
 const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const setting = require('../setting');
 
 module.exports = {
     data : new SlashCommandBuilder()
@@ -14,7 +15,7 @@ module.exports = {
                     .setStyle(ButtonStyle.Primary),
             )
         const Embed = new EmbedBuilder()
-            .setColor('#0099ff')
+            .setColor(setting.colorEmbed)
             .setTitle('Заявки')
             .setDescription(`Для подачи жалобы на расмотрение в суд нажмите кнопку "Написать жалобу". Вам выделится специальный канал, где вы можети подробно описать жалобу и предоставить доказательства.`);
         return interaction.reply({embeds: [Embed], components: [Button]});
